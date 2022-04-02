@@ -302,7 +302,6 @@ export const SearchInput = React.forwardRef<{}, SearchInputProps>(
           }}
         >
           <SearchIcon
-            // @ts-ignore
             width={20}
             height={20}
             style={{
@@ -315,7 +314,6 @@ export const SearchInput = React.forwardRef<{}, SearchInputProps>(
             testID={`search-input${
               props.testID !== undefined ? '-' + props.testID : ''
             }`}
-            // @ts-ignore
             ref={textInputRef}
             onFocus={onFocus}
             onBlur={onBlur}
@@ -376,7 +374,8 @@ export const VariableTextInput = React.forwardRef(
       onChangeValue,
       ...props
     }: VariableTextInputProps<T>,
-    ref: any
+    // @ts-ignore
+    ref
   ) => {
     const [data, set] = useState<VariableValue<T>>(
       () => value || { input: undefined, option: options[0].value }
@@ -550,7 +549,7 @@ type MultiInputProps<T extends string> = {
     ) => React.ReactNode;
     value: string | undefined;
     onChangeValue: (value: string) => void;
-  }) => JSX.Element;
+  }) => React.ReactNode;
 } & ViewProps;
 export function MultiInput<T extends string>({
   title,
@@ -567,6 +566,7 @@ export function MultiInput<T extends string>({
     [fields, configuration]
   );
   const [data, set] = useState<MultiInputValue<T>>(initialValue);
+  // @ts-ignore
   const [visible, setVisible] = useState<_MultiVisible<T>>(() => {
     const t = {};
     fields.forEach((f) => {
@@ -575,7 +575,7 @@ export function MultiInput<T extends string>({
       // @ts-ignore
       t[f.name] = s.required ? true : s.show;
     });
-    return t as _MultiVisible<T>;
+    return t;
   });
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -629,6 +629,7 @@ export function MultiInput<T extends string>({
                     key={`${name}-${ix}`}
                     text={label}
                     onChange={() => {
+                      // @ts-ignore
                       if (!config[name].required) {
                         setVisible((s) =>
                           produce(s, (df) => {
@@ -677,6 +678,7 @@ export function MultiInput<T extends string>({
             .filter((p) => visible[p.name])
             .map(({ label, name, component: Component }, ix) => (
               <React.Fragment key={`${label}-${ix}`}>
+                {/* @ts-ignore */}
                 <HouseComponent
                   label={label}
                   name={name}
@@ -697,9 +699,11 @@ export function normalizeConifiguration<T extends string>(
   fields: Array<MField<T>>,
   configuration: MultiInputConfiguration<T>
 ) {
-  const s: { [x: string]: { required: boolean; show: boolean } } = {};
+  const s = {};
   fields.map(({ name }) => {
+    // @ts-ignore
     const { required = false, show = false } = configuration[name] || {};
+    // @ts-ignore
     s[name] = { required, show };
   });
 

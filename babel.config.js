@@ -1,3 +1,16 @@
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
+  presets: [
+    [
+      require('@babel/preset-env'),
+      {
+        useBuiltIns: false,
+        modules: 'commonjs',
+      },
+    ],
+    require('@babel/preset-react'),
+    require('@babel/preset-typescript'),
+    '@babel/preset-flow',
+  ],
+
+  plugins: ['@babel/plugin-proposal-class-properties'],
 };

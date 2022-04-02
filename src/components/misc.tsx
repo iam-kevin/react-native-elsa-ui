@@ -134,15 +134,12 @@ export const iconToggle = (name: string, style: object = {}) => {
     );
   }
   if (name === 'check') {
-    // @ts-ignore
     return <CheckCircleIcon style={style} />;
   }
   if (name === 'search') {
-    // @ts-ignore
     return <SearchIcon style={style} />;
   }
   if (name === 'keyboard-arrow-down') {
-    // @ts-ignore
     return <ChevronDownIcon style={style} />;
   }
   return null;
@@ -154,8 +151,9 @@ export function SectionedSelect<T>(
   return (
     <SectionedMultiSelect
       // items={searchableConditions}
-      // @ts-ignore
-      IconRenderer={(props) => iconToggle(props.name, props.style)}
+      IconRenderer={(props: { name: string; style?: object }) =>
+        iconToggle(props.name, props.style)
+      }
       subKey="children"
       // searchPlaceholderText="Select conditions"
       // selectText="Choose conditions"

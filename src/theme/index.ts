@@ -52,15 +52,15 @@ export const fontFamilyStyle = (
 export const Color = {
   primary: {
     base: '#4665AF',
-    light: '#7993e0',
-    dark: '#8456A3',
-    text: '#ffffff',
+    light: '#7992e1',
+    dark: '#003b7f',
+    text: '#FFF',
   },
   secondary: {
     base: '#5558A6',
-    light: '#4BB8E9',
-    dark: '#5558A6', // can change in the future
-    text: '#000',
+    light: '#8685d8',
+    dark: '#222f77', // can change in the future
+    text: '#FFF',
   },
 };
 
